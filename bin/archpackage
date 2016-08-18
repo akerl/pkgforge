@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'archpackager'
+require 'mercenary'
+
+FILE_NAME = '.archpackage'
+
+Mercenary.program(:archpackage) do |p|
+  p.version ArchPackage::VERSION
+  p.description 'DSL engine for building Arch packages'
+  p.syntax 'archpackage [options]'
+
+  # rubocop:disable Metrics/LineLength
+  p.option :directory, '-d DIR', '--directory DIR', 'Change to directory before loading'
+  # rubocop:enable Metrics/LineLength
+
+  p.action do |_, options|
+    options[:directory] ||= '.'
+    Dir.chdir(options[:directory]) do
+      raise("No #{FILE_NAME} file") unless File.exist? FILE_NAME
+      ArchPackager.load_from_file(FILE_NAME).build!
+    end
+  end
+end
