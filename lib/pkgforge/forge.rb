@@ -18,10 +18,10 @@ module PkgForge
     Contract Maybe[HashOf[Symbol => Any]] => nil
     def initialize(params = {})
       @options = params
-      license = 'LICENSE'
-      deps = {}
-      flags = {}
-      patches = []
+      @license = 'LICENSE'
+      @deps = {}
+      @flags = {}
+      @patches = []
       nil
     end
 
@@ -32,10 +32,14 @@ module PkgForge
       prepare_deps!
       build_block.call
       add_license!
+      make_tarball!
     end
 
     Contract None => nil
     def push!
+      bump_revision!
+      update_repo!
+      upload_artifact!
     end
 
     private
@@ -97,7 +101,17 @@ module PkgForge
 
     Contract None => String
     def version
-      version_block.call
+      @version ||= version_block.call
+    end
+
+    Contract None => Num
+    def revision
+      File.read('version').to_i
+    end
+
+    Contract None => String
+    def full_version
+      "#{version}-#{revision}"
     end
 
     Contract None => nil
@@ -122,20 +136,55 @@ module PkgForge
 
     Contract None => nil
     def prepare_deps!
-      deps.each do |package, version|
-        url = "https://github.com/#{org}/#{package}/releases/download/#{version}/#{package}.tar.gz" # rubocop:disable Metrics/LineLength
-        open(tmpfile(package), 'wb') { |fh| fh << open(url, 'rb') }
-        run_local "tar -x -C #{tmpdir(package)} -f #{tmpfile(package)}"
+      deps.each do |dep_name, dep_version|
+        url = "https://github.com/#{org}/#{dep_name}/releases/download/#{dep_version}/#{dep_name}.tar.gz" # rubocop:disable Metrics/LineLength
+        open(tmpfile(dep_name), 'wb') { |fh| fh << open(url, 'rb') }
+        run_local "tar -x -C #{tmpdir(dep_name)} -f #{tmpfile(dep_name)}"
       end
     end
 
     Contract None => nil
     def add_license!
       src_file = File.join(tmpdir(:build), license)
-      dest_dir = File.join(tmpdir(:release), 'usr', 'share', 'licenses', package)
+      dest_dir = File.join(
+        tmpdir(:release), 'usr', 'share', 'licenses', package
+      )
       dest_file = File.join(dest_dir, 'LICENSE')
       FileUtils.mkdir_p dest_dir
       FileUtils.cp src_file, dest_file
+    end
+
+    Contract None => nil
+    def make_tarball!
+      Dir.chdir(tmpdir(:release)) do
+        run_local "tar -czvf #{tmpfile(:tarball)} *"
+      end
+    end
+
+    Contract None => nil
+    def bump_revision!
+      new_revision = File.read('version').to_i + 1
+      File.open('version', 'w') { |fh| fh << "#{new_revision}\n" }
+    end
+
+    Contract None => nil
+    def update_repo!
+      run_local "git commit -am '#{full_version}'"
+      run_local "git tag -f '#{full_version}'"
+      run_local "git push --tags origin master"
+      sleep 2
+    end
+
+    Contract None => nil
+    def upload_artifact!
+      run_local [
+        'targit',
+        '-c',
+        '-f',
+        "#{org}/#{package}",
+        full_version,
+        tmpfile(:tarball)
+      ]
     end
   end
 end
