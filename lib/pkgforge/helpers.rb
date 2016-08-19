@@ -10,6 +10,14 @@ module PkgForge
       tmpdir(package.to_sym)
     end
 
+    Contract Or[String, Array], Maybe[Hash[String => String]] => nil
+    def run(cmd, env = {})
+      Dir.chdir(tmpdir(:build)) do
+        run_local(cmd, env)
+      end
+      nil
+    end
+
     private
 
     Contract Symbol => String
@@ -22,14 +30,6 @@ module PkgForge
     def tmpfile(id)
       @tmpfiles ||= {}
       @tmpfiles[id] ||= Tempfile.create(id.to_s).path
-    end
-
-    Contract Or[String, Array], Maybe[Hash[String => String]] => nil
-    def run(cmd, env = {})
-      Dir.chdir(tmpdir(:build)) do
-        run_local(cmd, env)
-      end
-      nil
     end
 
     Contract Or[String, Array], Maybe[Hash[String => String]] => nil
