@@ -58,7 +58,7 @@ module PkgForge
     def prepare_deps!
       deps.each do |dep_name, dep_version|
         url = "https://github.com/#{org}/#{dep_name}/releases/download/#{dep_version}/#{dep_name}.tar.gz" # rubocop:disable Metrics/LineLength
-        open(tmpfile(dep_name), 'wb') { |fh| fh << open(url, 'rb') }
+        open(tmpfile(dep_name), 'wb') { |fh| fh << open(url, 'rb').read }
         run_local "tar -x -C #{tmpdir(dep_name)} -f #{tmpfile(dep_name)}"
       end
       nil
