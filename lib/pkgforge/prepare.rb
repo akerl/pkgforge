@@ -43,7 +43,7 @@ module PkgForge
     def add_license!
       src_file = File.join(tmpdir(:build), license)
       dest_dir = File.join(
-        tmpdir(:release), 'usr', 'share', 'licenses', package
+        tmpdir(:release), 'usr', 'share', 'licenses', name
       )
       dest_file = File.join(dest_dir, 'LICENSE')
       FileUtils.mkdir_p dest_dir
