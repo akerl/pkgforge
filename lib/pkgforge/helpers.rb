@@ -36,7 +36,7 @@ module PkgForge
     def run_local(cmd, env = {})
       puts "Running command in #{Dir.pwd}: #{cmd}"
       puts "Using env: #{env}" unless env.empty?
-      res = system env, cmd
+      res = system env, *cmd
       raise('Command failed!') unless res
       nil
     end
