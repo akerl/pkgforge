@@ -10,7 +10,7 @@ module PkgForge
       tmpdir(package.to_sym)
     end
 
-    Contract Or[String, Array], Maybe[Hash[String => String]] => nil
+    Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
     def run(cmd, env = {})
       Dir.chdir(tmpdir(:build)) do
         run_local(cmd, env)
@@ -32,7 +32,7 @@ module PkgForge
       @tmpfiles[id] ||= Tempfile.create(id.to_s).path
     end
 
-    Contract Or[String, Array], Maybe[Hash[String => String]] => nil
+    Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
     def run_local(cmd, env = {})
       puts "Running command in #{Dir.pwd}: #{cmd}"
       res = system env, cmd

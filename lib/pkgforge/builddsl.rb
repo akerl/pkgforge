@@ -15,7 +15,7 @@ module PkgForge
 
     private
 
-    Contract Or[String, Array], Maybe[Hash[String => String]] => nil
+    Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
     def run(*args)
       @forge.run(*args)
     end
