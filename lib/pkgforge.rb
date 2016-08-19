@@ -1,6 +1,9 @@
 require 'contracts'
 
 require 'pkgforge/version'
+require 'pkgforge/helpers'
+require 'pkgforge/build'
+require 'pkgforge/push'
 require 'pkgforge/forge'
 require 'pkgforge/forgedsl'
 
