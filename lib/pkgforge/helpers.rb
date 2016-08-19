@@ -48,7 +48,7 @@ module PkgForge
 
     Contract None => String
     def version
-      @version ||= version_block.call
+      @version ||= Dir.chdir(tmpdir(:build)) { version_block.call }
     end
 
     Contract None => Num
