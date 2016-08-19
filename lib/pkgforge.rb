@@ -2,10 +2,11 @@ require 'contracts'
 
 require 'pkgforge/version'
 require 'pkgforge/helpers'
-require 'pkgforge/build'
+require 'pkgforge/prepare'
 require 'pkgforge/push'
 require 'pkgforge/forge'
 require 'pkgforge/forgedsl'
+require 'pkgforge/builddsl'
 
 ##
 # DSL engine for compiling Arch packages
