@@ -26,7 +26,7 @@ module PkgForge
       env = {
         'CC' => 'musl-gcc'
       }
-      run ['./configure', flag_strings], env
+      run ['./configure'] + flag_strings, env
     end
 
     Contract None => nil
