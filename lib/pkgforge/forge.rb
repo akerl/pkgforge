@@ -33,7 +33,7 @@ module PkgForge
       prepare_source!
       patch_source!
       prepare_deps!
-      builder = BuildDSL.new(forge)
+      builder = BuildDSL.new(self)
       builder.instance_eval(build_block)
       add_license!
       make_tarball!
