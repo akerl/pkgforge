@@ -6,6 +6,6 @@ item do
 
   actual do
     gemnasium
-    slug 'akerl/archpackager'
+    slug 'akerl/pkgforge'
   end
 end
