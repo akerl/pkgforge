@@ -11,6 +11,7 @@ module PkgForge
     def bump_revision!
       new_revision = File.read('version').to_i + 1
       File.open('version', 'w') { |fh| fh << "#{new_revision}\n" }
+      nil
     end
 
     Contract None => nil
@@ -19,6 +20,7 @@ module PkgForge
       run_local "git tag -f '#{full_version}'"
       run_local 'git push --tags origin master'
       sleep 2
+      nil
     end
 
     Contract None => nil
@@ -31,6 +33,7 @@ module PkgForge
         full_version,
         tmpfile(:tarball)
       ]
+      nil
     end
   end
 end

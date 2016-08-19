@@ -29,6 +29,7 @@ module PkgForge
     Contract Or[String, Array[String]] => nil
     def rm(paths)
       FileUtils.rm_r paths
+      nil
     end
 
     Contract None => nil
@@ -42,6 +43,7 @@ module PkgForge
       FileUtils.cp_r '.git/modules/upstream', dest_git
       new_config = File.readlines(dest_git_config).grep_v(/worktree =/).join
       File.open(dest_git_config, 'w') { |fh| fh << new_config }
+      nil
     end
 
     Contract None => nil
@@ -49,6 +51,7 @@ module PkgForge
       patches.each do |patch|
         run_local "patch -d #{tmpdir(:build)} -p1 < patches/#{patch}"
       end
+      nil
     end
 
     Contract None => nil
@@ -58,6 +61,7 @@ module PkgForge
         open(tmpfile(dep_name), 'wb') { |fh| fh << open(url, 'rb') }
         run_local "tar -x -C #{tmpdir(dep_name)} -f #{tmpfile(dep_name)}"
       end
+      nil
     end
 
     Contract None => nil
@@ -69,6 +73,7 @@ module PkgForge
       dest_file = File.join(dest_dir, 'LICENSE')
       FileUtils.mkdir_p dest_dir
       FileUtils.cp src_file, dest_file
+      nil
     end
 
     Contract None => nil
@@ -76,6 +81,7 @@ module PkgForge
       Dir.chdir(tmpdir(:release)) do
         run_local "tar -czvf #{tmpfile(:tarball)} *"
       end
+      nil
     end
   end
 end

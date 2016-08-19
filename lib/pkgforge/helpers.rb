@@ -29,6 +29,7 @@ module PkgForge
       Dir.chdir(tmpdir(:build)) do
         run_local(cmd, env)
       end
+      nil
     end
 
     Contract Or[String, Array], Maybe[Hash[String => String]] => nil
@@ -36,6 +37,7 @@ module PkgForge
       puts "Running command in #{Dir.pwd}: #{cmd}"
       res = system env, cmd
       raise('Command failed!') unless res
+      nil
     end
 
     Contract None => String
