@@ -54,5 +54,10 @@ module PkgForge
     def license(file)
       @forge.license = file
     end
+
+    Contract String => String
+    def dep(dep_name)
+      @forge.dep(dep_name)
+    end
   end
 end
