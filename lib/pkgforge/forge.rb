@@ -12,7 +12,7 @@ module PkgForge
     include Contracts::Core
     include Contracts::Builtin
     include PkgForge::Helpers
-    include PkgForge::Build
+    include PkgForge::Prepare
     include PkgForge::Push
 
     attr_accessor :name, :org, :deps, :flags, :version_block, :patches,
@@ -33,7 +33,8 @@ module PkgForge
       prepare_source!
       patch_source!
       prepare_deps!
-      build_block.call
+      builder = BuildDSL.new(forge)
+      builder.instance_eval(build_block)
       add_license!
       make_tarball!
     end
