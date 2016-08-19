@@ -41,6 +41,8 @@ module PkgForge
 
     Contract Or[String, Array[String]] => nil
     def rm(paths)
+      paths = [paths] if paths.is_a? String
+      paths.map { |x| File.join(@forge.releasedir, x) }
       FileUtils.rm_r paths
       nil
     end
