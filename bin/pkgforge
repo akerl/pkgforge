@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 
-require 'archpackager'
+require 'pkgforge'
 require 'mercenary'
 
-FILE_NAME = '.archpackage'
+FILE_NAME = '.pkgforge'
 
-Mercenary.program(:archpackage) do |p|
-  p.version ArchPackage::VERSION
+Mercenary.program(:pkgforge) do |p|
+  p.version PkgForge::VERSION
   p.description 'DSL engine for building Arch packages'
-  p.syntax 'archpackage [options]'
+  p.syntax 'pkgforge [options]'
 
   # rubocop:disable Metrics/LineLength
   p.option :directory, '-d DIR', '--directory DIR', 'Change to directory before loading'
@@ -18,7 +18,7 @@ Mercenary.program(:archpackage) do |p|
     options[:directory] ||= '.'
     Dir.chdir(options[:directory]) do
       raise("No #{FILE_NAME} file") unless File.exist? FILE_NAME
-      ArchPackager.load_from_file(FILE_NAME).build!
+      PkgForge.load_from_file(FILE_NAME).build!
     end
   end
 end

@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'archpackager'
+  s.name        = 'pkgforge'
   s.version     = '0.0.1'
   s.date        = Time.now.strftime('%Y-%m-%d')
 
@@ -7,12 +7,12 @@ Gem::Specification.new do |s|
   s.description = "DSL engine for building Arch packages"
   s.authors     = ['Les Aker']
   s.email       = 'me@lesaker.org'
-  s.homepage    = 'https://github.com/akerl/archpackager'
+  s.homepage    = 'https://github.com/akerl/pkgforge'
   s.license     = 'MIT'
 
   s.files       = `git ls-files`.split
   s.test_files  = `git ls-files spec/*`.split
-  s.executables = ['archpackage']
+  s.executables = ['pkgforge']
 
   s.add_dependency 'mercenary', '~> 0.3.4'
 
