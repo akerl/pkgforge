@@ -27,9 +27,10 @@ module PkgForge
     def upload_artifact!
       run_local [
         'targit',
+        '-a', '.github',
         '-c',
         '-f',
-        "#{org}/#{package}",
+        "#{org}/#{name}",
         full_version,
         tmpfile(:tarball)
       ]
