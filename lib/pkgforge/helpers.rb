@@ -5,6 +5,11 @@ module PkgForge
     include Contracts::Core
     include Contracts::Builtin
 
+    Contract String => String
+    def dep(package)
+      tmpdir(package.to_sym)
+    end
+
     private
 
     Contract Symbol => String
@@ -17,11 +22,6 @@ module PkgForge
     def tmpfile(id)
       @tmpfiles ||= {}
       @tmpfiles[id] ||= Tempfile.create(id.to_s).path
-    end
-
-    Contract String => String
-    def dep(package)
-      tmpdir(package.to_sym)
     end
 
     Contract Or[String, Array], Maybe[Hash[String => String]] => nil
