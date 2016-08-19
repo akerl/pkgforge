@@ -10,6 +10,11 @@ module PkgForge
       tmpdir(package.to_sym)
     end
 
+    Contract None => String
+    def releasedir
+      tmpdir(:release)
+    end
+
     Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
     def run(cmd, env = {})
       Dir.chdir(tmpdir(:build)) do

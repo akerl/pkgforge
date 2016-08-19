@@ -36,7 +36,7 @@ module PkgForge
 
     Contract None => nil
     def install
-      run "make DESTDIR=#{tmpdir(:release)} install"
+      run "make DESTDIR=#{@forge.releasedir} install"
     end
 
     Contract Or[String, Array[String]] => nil
