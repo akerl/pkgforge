@@ -1,6 +1,9 @@
+$:.unshift File.expand_path('../lib/', __FILE__)
+require 'pkgforge/version'
+
 Gem::Specification.new do |s|
   s.name        = 'pkgforge'
-  s.version     = '0.0.1'
+  s.version     = PkgForge::VERSION
   s.date        = Time.now.strftime('%Y-%m-%d')
 
   s.summary     = 'DSL engine for building Arch packages'
@@ -15,6 +18,7 @@ Gem::Specification.new do |s|
   s.executables = ['pkgforge']
 
   s.add_dependency 'mercenary', '~> 0.3.4'
+  s.add_dependency 'contracts', '~> 0.14.0'
 
   s.add_development_dependency 'rubocop', '~> 0.42.0'
   s.add_development_dependency 'rake', '~> 11.2.0'

@@ -3,7 +3,7 @@
 require 'pkgforge'
 require 'mercenary'
 
-FILE_NAME = '.pkgforge'
+FILE_NAME = '.pkgforge'.freeze
 
 Mercenary.program(:pkgforge) do |p|
   p.version PkgForge::VERSION
@@ -18,7 +18,9 @@ Mercenary.program(:pkgforge) do |p|
     options[:directory] ||= '.'
     Dir.chdir(options[:directory]) do
       raise("No #{FILE_NAME} file") unless File.exist? FILE_NAME
-      PkgForge.load_from_file(FILE_NAME).build!
+      forge = PkgForge.load_from_file
+      forge.build!
+      forge.push!
     end
   end
 end
