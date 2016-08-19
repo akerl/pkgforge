@@ -12,6 +12,8 @@ module PkgForge
     include Contracts::Core
     include Contracts::Builtin
     include PkgForge::Helpers
+    include PkgForge::Build
+    include PkgForge::Push
 
     attr_accessor :name, :org, :deps, :flags, :version_block, :patches,
                   :build_block, :license
