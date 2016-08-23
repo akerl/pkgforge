@@ -17,6 +17,8 @@ module PkgForge
 
     Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
     def run(cmd, env = {})
+      cmd.unshift('/usr/bin/env') if cmd.is_a? Array
+      cmd << ';' if cmd.is_a? String
       env['PATH'] ||= './usr/bin'
       @forge.test_run(cmd, env)
     end
