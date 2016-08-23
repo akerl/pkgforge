@@ -50,4 +50,9 @@ Mercenary.program(:pkgforge) do |p|
       end
     end
   end
+
+  p.action do
+    puts p
+    exit 1
+  end
 end
