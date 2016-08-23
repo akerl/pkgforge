@@ -17,7 +17,7 @@ module PkgForge
 
     Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
     def run(cmd, env = {})
-      env = {'PATH' => './usr/bin'}.merge(env)
+      env['PATH'] ||= './usr/bin'
       @forge.test_run(cmd, env)
     end
   end
