@@ -23,6 +23,13 @@ module PkgForge
       nil
     end
 
+    Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
+    def test_run(cmd, env = {})
+      Dir.chdir(tmpdir(:release)) do
+        run_local(cmd, env)
+      end
+    end
+
     private
 
     Contract Symbol => String

@@ -17,7 +17,7 @@ module PkgForge
 
     Contract Or[String, Array], Or[Hash[String => String], {}, nil] => nil
     def run(*args)
-      @forge.run(*args)
+      @forge.test_run(*args)
     end
   end
 end
