@@ -16,7 +16,7 @@ module PkgForge
     include PkgForge::Push
 
     attr_accessor :name, :org, :deps, :flags, :version_block, :patches,
-                  :build_block, :license
+                  :build_block, :test_block, :license
 
     Contract Maybe[HashOf[Symbol => Any]] => nil
     def initialize(params = {})
@@ -25,6 +25,8 @@ module PkgForge
       @deps = {}
       @flags = {}
       @patches = []
+      @build_block = proc { fail('No build block provided') }
+      @test_block = proc { fail('No test block provided') }
       nil
     end
 
@@ -35,12 +37,18 @@ module PkgForge
       prepare_deps!
       builder = BuildDSL.new(self)
       builder.instance_eval(&build_block)
-      add_license!
-      make_tarball!
+    end
+
+    Contract None => nil
+    def test!
+      tester = TestDSL.new(self)
+      tester.instance_eval(&test_block)
     end
 
     Contract None => nil
     def push!
+      add_license!
+      make_tarball!
       bump_revision!
       update_repo!
       upload_artifact!

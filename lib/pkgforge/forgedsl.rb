@@ -57,6 +57,12 @@ module PkgForge
       nil
     end
 
+    Contract Func[None => nil] => nil
+    def test(&block)
+      @forge.test_block = block
+      nil
+    end
+
     Contract String => nil
     def license(file)
       @forge.license = file

@@ -33,6 +33,7 @@ Mercenary.program(:pkgforge) do |p|
     c.action do |_, options|
       run_on_file(options) do |forge|
         forge.build!
+        forge.test!
         forge.push!
       end
     end
