@@ -33,8 +33,8 @@ module PkgForge
     end
 
     Contract HashOf[Symbol => String] => nil
-    def flags(value)
-      @forge.flags = value
+    def configure_flags(value)
+      @forge.configure_flags = value
       nil
     end
 

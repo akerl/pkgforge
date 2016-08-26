@@ -22,7 +22,9 @@ module PkgForge
 
     Contract None => nil
     def configure
-      flag_strings = @forge.flags.map { |k, v| "--#{k}#{v ? "=#{v}" : ''}" }
+      flag_strings = @forge.configure_flags.map do |flag, value|
+        "--#{flag}#{'=' if value}#{value}"
+      end
       env = {
         'CC' => 'musl-gcc'
       }

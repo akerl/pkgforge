@@ -15,8 +15,8 @@ module PkgForge
     include PkgForge::Prepare
     include PkgForge::Push
 
-    attr_accessor :name, :org, :deps, :flags, :version_block, :patches,
-                  :build_block, :test_block, :license
+    attr_accessor :name, :org, :deps, :configure_flags, :version_block,
+                  :patches, :build_block, :test_block, :license
 
     Contract Maybe[HashOf[Symbol => Any]] => nil
     def initialize(params = {})
