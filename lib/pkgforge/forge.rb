@@ -25,8 +25,8 @@ module PkgForge
       @deps = {}
       @flags = {}
       @patches = []
-      @build_block = proc { fail('No build block provided') }
-      @test_block = proc { fail('No test block provided') }
+      @build_block = proc { raise('No build block provided') }
+      @test_block = proc { raise('No test block provided') }
       nil
     end
 
