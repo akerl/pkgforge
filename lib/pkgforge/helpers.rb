@@ -55,7 +55,9 @@ module PkgForge
 
     Contract None => String
     def version
-      @version ||= Dir.chdir(tmpdir(:build)) { version_block.call }
+      @version ||= Dir.chdir(tmpdir(:build)) do
+        VersionDSL.new(self).instance_eval(&version_block)
+      end
     end
 
     Contract None => Num

@@ -8,6 +8,7 @@ require 'pkgforge/forge'
 require 'pkgforge/forgedsl'
 require 'pkgforge/builddsl'
 require 'pkgforge/testdsl'
+require 'pkgforge/versiondsl'
 
 ##
 # DSL engine for compiling Arch packages
