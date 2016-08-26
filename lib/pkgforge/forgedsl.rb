@@ -38,7 +38,7 @@ module PkgForge
       nil
     end
 
-    Contract Func[None => String] => nil
+    Contract Func[None => Maybe[String]] => nil
     def version(&block)
       @forge.version_block = block
       nil
