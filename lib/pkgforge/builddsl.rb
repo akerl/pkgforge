@@ -26,7 +26,8 @@ module PkgForge
         "--#{flag}#{'=' if value}#{value}"
       end
       env = {
-        'CC' => 'musl-gcc'
+        'CC' => 'musl-gcc',
+        'CFLAGS' => @forge.cflags
       }
       run ['./configure'] + flag_strings, env
     end

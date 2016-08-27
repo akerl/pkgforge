@@ -16,7 +16,8 @@ module PkgForge
     include PkgForge::Push
 
     attr_accessor :name, :org, :deps, :configure_flags, :version_block,
-                  :patches, :build_block, :test_block, :license
+                  :patches, :build_block, :test_block, :license, :cflags,
+                  :libs
 
     Contract Maybe[HashOf[Symbol => Any]] => nil
     def initialize(params = {})
