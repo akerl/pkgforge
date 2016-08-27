@@ -27,7 +27,8 @@ module PkgForge
       end
       env = {
         'CC' => 'musl-gcc',
-        'CFLAGS' => @forge.cflags
+        'CFLAGS' => @forge.cflags,
+        'LIBS' => @forge.libs
       }
       run ['./configure'] + flag_strings, env
     end

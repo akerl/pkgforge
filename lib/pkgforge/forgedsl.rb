@@ -76,9 +76,16 @@ module PkgForge
 
     Contract Maybe[String] => nil
     def cflags(value = nil)
-      default_str = '-I%{dep}/usr/include -L%{dep}/usr/lib'
-      value ||= @forge.deps.map { |x| default_str % { dep: dep(x) } }.join(' ')
+      default = '-I%{dep}/usr/include -L%{dep}/usr/lib'
+      value ||= @forge.deps.map { |x, _| default % { dep: dep(x) } }.join(' ')
       @forge.cflags = value
+      nil
+    end
+
+    Contract Maybe[String] => nil
+    def libs(value = nil)
+      value ||= @forge.deps.map { |x, _| '-l' + x }.join(' ')
+      @forge.libs = value
     end
   end
 end
