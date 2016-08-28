@@ -18,7 +18,6 @@ module PkgForge
     def update_repo!
       run_local "git commit -am '#{full_version}'"
       run_local "git tag -f '#{full_version}'"
-      cache_hostkey!
       run_local 'git push --tags origin master'
       sleep 2
       nil
@@ -34,12 +33,6 @@ module PkgForge
         "#{org}/#{name}", full_version, tmpfile(:tarball)
       ]
       nil
-    end
-
-    Contract None => nil
-    def cache_hostkey!
-      cmd = 'ssh -oStrictHostKeyChecking=no git@github.com &> /dev/null || true'
-      run_local cmd
     end
   end
 end
