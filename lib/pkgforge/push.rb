@@ -38,7 +38,8 @@ module PkgForge
 
     Contract None => nil
     def cache_hostkey!
-      run_local "ssh -oStrictHostKeyChecking=no git@github.com &> /dev/null || true"
+      cmd = 'ssh -oStrictHostKeyChecking=no git@github.com &> /dev/null || true'
+      run_local cmd
     end
   end
 end
