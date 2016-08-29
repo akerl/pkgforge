@@ -50,7 +50,6 @@ module PkgForge
     def push!
       add_license!
       make_tarball!
-      bump_revision!
       update_repo!
       upload_artifact!
     end

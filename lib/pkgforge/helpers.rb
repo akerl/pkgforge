@@ -62,7 +62,7 @@ module PkgForge
 
     Contract None => Num
     def revision
-      File.read('version').to_i
+      @revision ||= `git describe --abbrev=0 --tags`.split('-').last.to_i + 1
     end
 
     Contract None => String
