@@ -17,7 +17,7 @@ module PkgForge
 
     attr_accessor :name, :org, :deps, :configure_flags, :version_block,
                   :patches, :build_block, :test_block, :license, :cflags,
-                  :libs
+                  :libs, :harden_flags
 
     Contract Maybe[HashOf[Symbol => Any]] => nil
     def initialize(params = {})

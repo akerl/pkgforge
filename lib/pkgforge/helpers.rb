@@ -30,6 +30,11 @@ module PkgForge
       end
     end
 
+    Contract None => Array[String]
+    def all_cflags
+      @forge.cflags + @forge.harden_flags
+    end
+
     private
 
     Contract Symbol => String
