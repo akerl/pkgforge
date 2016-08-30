@@ -32,7 +32,7 @@ module PkgForge
 
     Contract None => Array[String]
     def all_cflags
-      @forge.cflags + @forge.harden_flags
+      cflags + harden_flags
     end
 
     private
