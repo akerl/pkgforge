@@ -1,14 +1,19 @@
 require 'contracts'
 
+require 'pkgforge/base'
 require 'pkgforge/version'
-require 'pkgforge/helpers'
-require 'pkgforge/prepare'
-require 'pkgforge/push'
-require 'pkgforge/forge'
-require 'pkgforge/forgedsl'
-require 'pkgforge/builddsl'
-require 'pkgforge/testdsl'
-require 'pkgforge/versiondsl'
+require 'pkgforge/components/build'
+require 'pkgforge/components/cflags'
+require 'pkgforge/components/configure'
+require 'pkgforge/components/deps'
+require 'pkgforge/components/dirs'
+require 'pkgforge/components/metadata'
+require 'pkgforge/components/patch'
+require 'pkgforge/components/run'
+require 'pkgforge/components/source'
+require 'pkgforge/components/test'
+require 'pkgforge/components/upload'
+require 'pkgforge/components/version'
 
 ##
 # DSL engine for compiling Arch packages

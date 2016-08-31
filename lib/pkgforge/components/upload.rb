@@ -1,11 +1,24 @@
 module PkgForge
   ##
-  # Helpers for pushing
-  module Push
-    include Contracts::Core
-    include Contracts::Builtin
+  # Add upload methods to Forge
+  class Forge
+    Contract None => nil
+    def push!
+      add_license!
+      make_tarball!
+      update_repo!
+      upload_artifact!
+    end
 
     private
+
+    Contract None => nil
+    def make_tarball!
+      Dir.chdir(tmpdir(:release)) do
+        run_local "tar -czvf #{tmpfile(:tarball)} *"
+      end
+      nil
+    end
 
     Contract None => nil
     def update_repo!
