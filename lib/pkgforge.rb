@@ -36,7 +36,7 @@ module PkgForge
     def load_from_file(params = {})
       file = params[:file] || DEFAULT_FILE
       forge = Forge.new(params)
-      dsl = ForgeDSL.new(forge, params)
+      dsl = DSL::Forge.new(forge, params)
       dsl.instance_eval(File.read(file), file)
       forge
     end
