@@ -24,7 +24,7 @@ module PkgForge
     ##
     # Add configure flag options to Build DSL
     class Build
-      Contract None => ArrayOf[Strings]
+      Contract None => ArrayOf[String]
       def configure_flag_strings
         @forge.configure_flags.map do |flag, value|
           "--#{flag}#{'=' if value}#{value}"
