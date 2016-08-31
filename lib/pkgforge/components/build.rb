@@ -6,7 +6,7 @@ module PkgForge
   class Forge
     attr_writer :build_block
 
-    Contract None => Func[None => nil]
+    Contract None => Proc
     def build_block
       @build_block ||= proc { raise 'No build block provided' }
     end

@@ -4,7 +4,7 @@ module PkgForge
   class Forge
     attr_writer :version_block
 
-    Contract None => Func[None => String]
+    Contract None => Proc
     def version_block
       @version_block ||= proc { raise 'No version block provided' }
     end
