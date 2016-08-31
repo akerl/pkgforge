@@ -42,15 +42,12 @@ module PkgForge
 
       Contract None => nil
       def configure
-        flag_strings = @forge.configure_flags.map do |flag, value|
-          "--#{flag}#{'=' if value}#{value}"
-        end
         env = {
           'CC' => 'musl-gcc',
           'CFLAGS' => @forge.cflags,
           'LIBS' => @forge.libs
         }
-        run ['./configure'] + flag_strings, env
+        run ['./configure'] + configure_flag_strings, env
       end
 
       Contract None => nil
