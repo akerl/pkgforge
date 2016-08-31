@@ -2,6 +2,13 @@ module PkgForge
   ##
   # Add version methods to Forge
   class Forge
+    attr_writer :version_block
+
+    Contract None => Func[None => String]
+    def version_block
+      @version_block ||= proc { raise 'No version block provided' }
+    end
+
     Contract None => String
     def version
       @version ||= Dir.chdir(tmpdir(:build)) do
