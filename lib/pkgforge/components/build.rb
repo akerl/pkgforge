@@ -44,8 +44,8 @@ module PkgForge
       def configure
         env = {
           'CC' => 'musl-gcc',
-          'CFLAGS' => @forge.cflags,
-          'LIBS' => @forge.libs
+          'CFLAGS' => @forge.cflags.join(' '),
+          'LIBS' => @forge.libs.join(' ')
         }
         run ['./configure'] + configure_flag_strings, env
       end
