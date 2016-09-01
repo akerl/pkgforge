@@ -29,7 +29,9 @@ module PkgForge
     Contract None => nil
     def copy_tarball!
       FileUtils.mkdir_p 'pkg'
-      FileUtils.cp tmpfile(:tarball), "pkg/#{name}-#{git_hash}.tar.gz"
+      pkg_file = "pkg/#{name}-#{git_hash}.tar.gz"
+      FileUtils.cp tmpfile(:tarball), pkg_file
+      FileUtils.chmod 0644, pkg_file
       nil
     end
   end
