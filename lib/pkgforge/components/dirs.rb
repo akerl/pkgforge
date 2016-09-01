@@ -5,7 +5,7 @@ module PkgForge
   ##
   # Add dir methods to Forge
   class Forge
-    Contract String => String
+    Contract Or[String, Symbol] => String
     def dep(package)
       tmpdir(package.to_sym)
     end
@@ -32,7 +32,7 @@ module PkgForge
     ##
     # Add dir methods to Forge DSL
     class Forge
-      Contract String => String
+      Contract Or[String, Symbol] => String
       def dep(dep_name)
         @forge.dep(dep_name)
       end
