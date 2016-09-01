@@ -31,7 +31,7 @@ module PkgForge
       FileUtils.mkdir_p 'pkg'
       pkg_file = "pkg/#{name}-#{git_hash}.tar.gz"
       FileUtils.cp tmpfile(:tarball), pkg_file
-      FileUtils.chmod 0644, pkg_file
+      FileUtils.chmod 0o0644, pkg_file
       nil
     end
   end
