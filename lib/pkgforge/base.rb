@@ -36,8 +36,5 @@ module PkgForge
 
     class Test < PkgForge::Base
     end
-
-    class Version < PkgForge::Base
-    end
   end
 end

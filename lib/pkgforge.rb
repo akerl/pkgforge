@@ -8,12 +8,12 @@ require 'pkgforge/components/configure'
 require 'pkgforge/components/deps'
 require 'pkgforge/components/dirs'
 require 'pkgforge/components/metadata'
+require 'pkgforge/components/package'
 require 'pkgforge/components/patch'
 require 'pkgforge/components/run'
 require 'pkgforge/components/source'
 require 'pkgforge/components/test'
 require 'pkgforge/components/upload'
-require 'pkgforge/components/version'
 
 ##
 # DSL engine for compiling Arch packages
