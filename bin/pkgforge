@@ -34,6 +34,7 @@ Mercenary.program(:pkgforge) do |p|
       run_on_file(options) do |forge|
         forge.build!
         forge.test!
+        forge.package!
       end
     end
   end
@@ -47,6 +48,7 @@ Mercenary.program(:pkgforge) do |p|
       run_on_file(options) do |forge|
         forge.build!
         forge.test!
+        forge.package!
         forge.push!
       end
     end
