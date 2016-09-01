@@ -34,6 +34,19 @@ Mercenary.program(:pkgforge) do |p|
       run_on_file(options) do |forge|
         forge.build!
         forge.test!
+      end
+    end
+  end
+
+  p.command(:release) do |c|
+    c.syntax 'release [options]'
+    c.description 'Release the package'
+    add_common_opts(c)
+
+    c.action do |_, options|
+      run_on_file(options) do |forge|
+        forge.build!
+        forge.test!
         forge.push!
       end
     end
