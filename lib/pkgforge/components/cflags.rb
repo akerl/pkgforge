@@ -27,9 +27,10 @@ module PkgForge
         nil
       end
 
-      Contract Maybe[String] => nil
+      Contract Maybe[ArrayOf[String]] => nil
       def libs(value = nil)
-        value ||= @forge.deps.map { |x, _| '-l' + x }
+        value ||= @forge.deps.keys
+        value.map! { |x| '-l' + x }
         @forge.libs += value
         nil
       end
