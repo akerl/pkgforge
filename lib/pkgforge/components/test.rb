@@ -37,7 +37,15 @@ module PkgForge
         cmd.unshift('/usr/bin/env') if cmd.is_a? Array
         cmd << ';' if cmd.is_a? String
         env['PATH'] ||= './usr/bin'
+        env['LD_LIBRARY_PATH'] ||= ld_library_path
         @forge.test_run(cmd, env)
+      end
+
+      private
+
+      Contract None => String
+      def ld_library_path
+        @forge.deps.keys.map { |x| "#{dep(x)}/usr/lib" }.join(':')
       end
     end
   end
