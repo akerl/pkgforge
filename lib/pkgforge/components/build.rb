@@ -40,24 +40,19 @@ module PkgForge
         @forge.run(*args)
       end
 
-      Contract None => nil
-      def configure
-        env = {
-          'CC' => 'musl-gcc',
-          'CFLAGS' => @forge.cflags.join(' '),
-          'LIBS' => @forge.libs.join(' ')
-        }
-        run ['./configure'] + configure_flag_strings, env
+      Contract Maybe[HashOf[String => String]] => nil
+      def configure(env = {})
+        run ['./configure'] + configure_flag_strings, default_env.merge(env)
       end
 
-      Contract None => nil
-      def make
-        run 'make'
+      Contract Maybe[HashOf[String => String]] => nil
+      def make(env = {})
+        run 'make', default_env.merge(env)
       end
 
-      Contract None => nil
-      def install
-        run "make DESTDIR=#{@forge.releasedir} install"
+      Contract Maybe[HashOf[String => String]] => nil
+      def install(env = {})
+        run "make DESTDIR=#{@forge.releasedir} install", default_env.merge(env)
       end
 
       Contract Or[String, ArrayOf[String]] => nil
@@ -66,6 +61,17 @@ module PkgForge
         paths.map { |x| File.join(@forge.releasedir, x) }
         FileUtils.rm_r paths
         nil
+      end
+
+      private
+
+      Contract None => HashOf[String => String]
+      def default_env
+        {
+          'CC' => 'musl-gcc',
+          'CFLAGS' => @forge.cflags.join(' '),
+          'LIBS' => @forge.libs.join(' ')
+        }
       end
     end
   end
