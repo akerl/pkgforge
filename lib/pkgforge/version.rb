@@ -1,5 +1,5 @@
 ##
 # Declare version number
 module PkgForge
-  VERSION = '0.4.7'.freeze
+  VERSION = '0.4.8'.freeze
 end

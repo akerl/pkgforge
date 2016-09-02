@@ -36,7 +36,11 @@ module PkgForge
       def dep(dep_name)
         @forge.dep(dep_name)
       end
+    end
 
+    ##
+    # Add dir methods to Build DSL
+    class Build
       Contract None => String
       def releasedir
         @forge.tmpdir(:release)
