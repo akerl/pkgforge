@@ -51,7 +51,8 @@ module PkgForge
       Contract Maybe[Array[String]] => nil
       def harden(list = [])
         harden_opts = ALL_HARDEN_OPTS.reject { |k, _| list.include? k.to_s }
-        @forge.cflags += harden_opts.flatten
+        @forge.cflags += harden_opts.values.flatten
+        nil
       end
     end
   end
