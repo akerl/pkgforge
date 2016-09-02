@@ -51,7 +51,7 @@ module PkgForge
       if old_lib_paths
         File.open(lib_path_file, 'w') { |fh| fh << old_lib_paths }
       else
-        File.rm(lib_path_file)
+        File.unlink(lib_path_file)
       end
       nil
     end
