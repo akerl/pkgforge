@@ -36,6 +36,11 @@ module PkgForge
       def dep(dep_name)
         @forge.dep(dep_name)
       end
+
+      Contract None => String
+      def releasedir
+        @forge.tmpdir(:release)
+      end
     end
   end
 end
