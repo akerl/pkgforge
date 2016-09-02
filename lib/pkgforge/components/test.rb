@@ -45,7 +45,7 @@ module PkgForge
 
       Contract None => String
       def ld_library_path
-        @forge.deps.keys.map { |x| "#{dep(x)}/usr/lib" }.join(':')
+        @forge.deps.keys.map { |x| "#{@forge.dep(x)}/usr/lib" }.join(':')
       end
     end
   end
