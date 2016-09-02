@@ -16,20 +16,20 @@ module PkgForge
       @org || raise('No org provided')
     end
 
-    Contract None => String
-    def license
-      @license ||= 'LICENSE'
+    Contract None => ArrayOf[String]
+    def licenses
+      @licenses ||= ['LICENSE']
     end
 
     Contract None => nil
     def add_license!
-      src_file = File.join(tmpdir(:build), license)
-      dest_dir = File.join(
-        tmpdir(:release), 'usr', 'share', 'licenses', name
-      )
-      dest_file = File.join(dest_dir, 'LICENSE')
+      dest_dir = File.join(tmpdir(:release), 'usr', 'share', 'licenses', name)
       FileUtils.mkdir_p dest_dir
-      FileUtils.cp src_file, dest_file
+      licenses.each do |license|
+        src_file = File.join(tmpdir(:build), license)
+        dest_file = File.join(dest_dir, license)
+        FileUtils.cp src_file, dest_file
+      end
       nil
     end
   end
@@ -50,9 +50,10 @@ module PkgForge
         nil
       end
 
-      Contract String => nil
-      def license(file)
-        @forge.license = file
+      Contract Or[String, ArrayOf[String]] => nil
+      def licenses(files)
+        files = [files] unless files.is_a? Array
+        @forge.license = files
         nil
       end
     end
