@@ -22,7 +22,7 @@ module PkgForge
       Contract Maybe[String] => nil
       def cflags(value = nil)
         default = '-I%{dep}/usr/include -L%{dep}/usr/lib'
-        value ||= @forge.deps.map { |x, _| default % { dep: dep(x) }.split }
+        value ||= @forge.deps.map { |x, _| (default % { dep: dep(x) }).split }
         @forge.cflags += value.flatten
         nil
       end
