@@ -44,8 +44,7 @@ module PkgForge
         pic: '-fPIC',
         strictoverflow: '-fno-strict-overflow',
         relro: '-zrelro',
-        bindnow: '-zbindnow',
-        pie: %w(-fPIE -pie)
+        bindnow: '-zbindnow'
       }.freeze
 
       Contract Maybe[Array[String]] => nil
