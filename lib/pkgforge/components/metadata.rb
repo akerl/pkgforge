@@ -4,7 +4,7 @@ module PkgForge
   ##
   # Add metadata methods to Forge
   class Forge
-    attr_writer :name, :org, :license
+    attr_writer :name, :org, :licenses
 
     Contract None => String
     def name
@@ -53,7 +53,7 @@ module PkgForge
       Contract Or[String, ArrayOf[String]] => nil
       def licenses(files)
         files = [files] unless files.is_a? Array
-        @forge.license = files
+        @forge.licenses = files
         nil
       end
     end
