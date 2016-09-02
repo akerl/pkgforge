@@ -34,7 +34,7 @@ module PkgForge
     Contract Func[None => nil] => nil
     def lib_override
       lib_path_file = '/etc/ld-musl-x86_64.path'
-      old_lib_paths = File.read(path_file)
+      old_lib_paths = File.read(lib_path_file)
       File.open(lib_path_file, 'w') { |fh| fh << ld_library_path }
       yield
     ensure
