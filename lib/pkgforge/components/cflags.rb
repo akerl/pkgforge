@@ -43,8 +43,8 @@ module PkgForge
         fortify: %w(-O2 -D_FORTIFY_SOURCE=2),
         pic: '-fPIC',
         strictoverflow: '-fno-strict-overflow',
-        relro: '-z=relro',
-        bindnow: '-z=bindnow',
+        relro: '-zrelro',
+        bindnow: '-zbindnow',
         pie: %w(-fPIE -pie)
       }.freeze
 
