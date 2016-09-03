@@ -56,6 +56,7 @@ module PkgForge
         @forge.licenses = files
         nil
       end
+      alias license licenses
     end
   end
 end
