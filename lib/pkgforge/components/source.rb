@@ -44,4 +44,16 @@ module PkgForge
       run "tar -xf #{dest_file} --strip-components=1"
     end
   end
+
+  module DSL
+    ##
+    # Add source methods to Forge DSL
+    class Forge
+      Contract HashOf[Symbol => Any] => nil
+      def source(params)
+        @forge.source = params
+        nil
+      end
+    end
+  end
 end
