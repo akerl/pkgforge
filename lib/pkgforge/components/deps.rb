@@ -54,8 +54,9 @@ module PkgForge
       end
 
       Contract Bool => nil
-      def remove_linker_archives(value)
+      def remove_linker_archives(value = true)
         @forge.remove_linker_archives = value
+        nil
       end
     end
   end
