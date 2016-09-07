@@ -25,7 +25,7 @@ module PkgForge
     end
 
     Contract None => nil
-    def download_deps
+    def download_deps!
       deps.each do |dep_name, dep_version|
         url = "https://github.com/#{org}/#{dep_name}/releases/download/#{dep_version}/#{dep_name}.tar.gz" # rubocop:disable Metrics/LineLength
         open(tmpfile(dep_name), 'wb') { |fh| fh << open(url, 'rb').read }
