@@ -45,6 +45,11 @@ module PkgForge
       def releasedir
         @forge.tmpdir(:release)
       end
+
+      Contract Symbol => String
+      def tmpdir(id)
+        @forge.tmpdir(id)
+      end
     end
   end
 end
