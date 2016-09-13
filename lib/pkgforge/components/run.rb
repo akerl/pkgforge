@@ -3,9 +3,9 @@ module PkgForge
   # Add run methods to Forge
   class Forge
     Contract Or[String, Array], Or[HashOf[String => String], {}, nil] => nil
-    def run(cmd, env = {})
+    def run(*args)
       Dir.chdir(tmpdir(:build)) do
-        run_local(cmd, env)
+        run_local(*args)
       end
       nil
     end
