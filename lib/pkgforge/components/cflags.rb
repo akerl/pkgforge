@@ -19,7 +19,7 @@ module PkgForge
     ##
     # Add cflag options to Forge DSL
     class Forge
-      Contract Maybe[String] => nil
+      Contract Maybe[ArrayOf[String]] => nil
       def cflags(value = nil)
         default = '-I%{dep}/usr/include -L%{dep}/usr/lib'
         value ||= @forge.deps.map { |x, _| (default % { dep: dep(x) }).split }
