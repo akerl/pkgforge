@@ -46,6 +46,11 @@ module PkgForge
         @forge.tmpdir(:release)
       end
 
+      Contract Or[String, Symbol] => String
+      def dep(package)
+        @forge.tmpdir(package.to_sym)
+      end
+
       Contract Symbol => String
       def tmpdir(id)
         @forge.tmpdir(id)
