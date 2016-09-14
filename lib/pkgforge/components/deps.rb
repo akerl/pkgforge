@@ -4,7 +4,7 @@ module PkgForge
   ##
   # Add dep methods to Forge
   class Forge
-    attr_writer :deps, :remove_linker_archives
+    attr_writer :deps, :remove_linker_archives, :remove_pkgconfig_files
 
     Contract None => HashOf[Symbol => String]
     def deps
@@ -16,12 +16,18 @@ module PkgForge
       @remove_linker_archives ||= false
     end
 
+    Contract None => Bool
+    def remove_pkgconfig_files?
+      @remove_pkgconfig_files ||= false
+    end
+
     private
 
     Contract None => nil
     def prepare_deps!
       download_deps!
       remove_linker_archives! if remove_linker_archives?
+      remove_pkgconfig_files! if remove_pkgconfig_files?
     end
 
     Contract None => nil
@@ -41,6 +47,14 @@ module PkgForge
       end
       nil
     end
+
+    Contract None => nil
+    def remove_pkgconfig_files!
+      deps.keys.each do |dep_name|
+        File.unlink(*Dir.glob("#{tmpdir(dep_name)}/**/*.pc"))
+      end
+      nil
+    end
   end
 
   module DSL
@@ -56,6 +70,12 @@ module PkgForge
       Contract Bool => nil
       def remove_linker_archives(value = true)
         @forge.remove_linker_archives = value
+        nil
+      end
+
+      Contract Bool => nil
+      def remove_pkgconfig_files(value = true)
+        @forge.remove_pkgconfig_files = value
         nil
       end
     end
