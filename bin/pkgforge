@@ -35,6 +35,7 @@ Mercenary.program(:pkgforge) do |p|
         forge.build!
         forge.test!
         forge.package!
+        forge.cleanup!
       end
     end
   end
@@ -49,6 +50,7 @@ Mercenary.program(:pkgforge) do |p|
         forge.build!
         forge.test!
         forge.package!
+        forge.cleanup!
         forge.push!
       end
     end
