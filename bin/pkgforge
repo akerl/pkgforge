@@ -8,6 +8,7 @@ FILE_NAME = '.pkgforge'.freeze
 def add_common_opts(cmd)
   # rubocop:disable Metrics/LineLength
   cmd.option :directory, '-d DIR', '--directory DIR', 'Change to directory before loading'
+  cmd.option :skipcleanup, '-s', '--skipcleanup', 'Skip cleanup of tmpdirs and tmpfiles'
   # rubocop:enable Metrics/LineLength
 end
 
@@ -32,10 +33,13 @@ Mercenary.program(:pkgforge) do |p|
 
     c.action do |_, options|
       run_on_file(options) do |forge|
-        forge.build!
-        forge.test!
-        forge.package!
-        forge.cleanup!
+        begin
+          forge.build!
+          forge.test!
+          forge.package!
+        ensure
+          forge.cleanup! unless options[:skipcleanup]
+        end
       end
     end
   end
@@ -47,11 +51,14 @@ Mercenary.program(:pkgforge) do |p|
 
     c.action do |_, options|
       run_on_file(options) do |forge|
-        forge.build!
-        forge.test!
-        forge.package!
-        forge.cleanup!
-        forge.push!
+        begin
+          forge.build!
+          forge.test!
+          forge.package!
+          forge.push!
+        ensure
+          forge.cleanup! unless options[:skipcleanup]
+        end
       end
     end
   end
