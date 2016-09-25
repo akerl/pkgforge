@@ -12,7 +12,7 @@ module PkgForge
       tmpfiles.delete(:tarball)
       paths = [tmpfiles.values, @tmpdirs.values].flatten
       puts "Cleaning up tmp paths: #{paths}"
-      FileUtils.rm_r paths
+      FileUtils.rm_rf paths
       nil
     end
   end
