@@ -8,9 +8,7 @@ module PkgForge
     def cleanup!
       @tmpdirs ||= {}
       @tmpfiles ||= {}
-      tmpfiles = @tmpfiles.dup
-      tmpfiles.delete(:tarball)
-      paths = [tmpfiles.values, @tmpdirs.values].flatten
+      paths = [@tmpfiles.values, @tmpdirs.values].flatten
       puts "Cleaning up tmp paths: #{paths}"
       FileUtils.rm_rf paths
       nil
