@@ -32,6 +32,7 @@ module PkgForge
     def git_fix_submodule
       dest_git = File.join(tmpdir(:build), '.git')
       dest_git_config = File.join(dest_git, 'config')
+      FileUtils.rm dest_git
       FileUtils.cp_r ".git/modules/#{source[:path]}", dest_git
       new_config = File.readlines(dest_git_config).grep_v(/worktree =/).join
       File.open(dest_git_config, 'w') { |fh| fh << new_config }
