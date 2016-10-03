@@ -24,7 +24,7 @@ module PkgForge
     Contract None => nil
     def git_prepare_source
       run_local 'git submodule update --init --recursive'
-      run "git clone --recursive '#{source[:path]}' #{tmpdir(:build)}"
+      run_local "git clone --recursive '#{source[:path]}' #{tmpdir(:build)}"
     end
 
     Contract None => nil
