@@ -35,6 +35,11 @@ module PkgForge
       end
       run "tar -xf #{dest_file} --strip-components=1"
     end
+
+    Contract None => nil
+    def empty_prepare_source
+      # This source type is a no-op
+    end
   end
 
   module DSL
