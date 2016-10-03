@@ -24,19 +24,7 @@ module PkgForge
     Contract None => nil
     def git_prepare_source
       run_local 'git submodule update --init --recursive'
-      FileUtils.cp_r "#{source[:path]}/.", tmpdir(:build)
-      git_fix_submodule unless source[:path] == '.'
-    end
-
-    Contract None => nil
-    def git_fix_submodule
-      dest_git = File.join(tmpdir(:build), '.git')
-      dest_git_config = File.join(dest_git, 'config')
-      FileUtils.rm dest_git
-      FileUtils.cp_r ".git/modules/#{source[:path]}", dest_git
-      new_config = File.readlines(dest_git_config).grep_v(/worktree =/).join
-      File.open(dest_git_config, 'w') { |fh| fh << new_config }
-      nil
+      run "git clone --recursive '#{source[:path]}' #{tmpdir(:build)}"
     end
 
     Contract None => nil
