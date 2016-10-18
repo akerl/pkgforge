@@ -39,7 +39,7 @@ module PkgForge
       # https://blog.mayflower.de/5800-Hardening-Compiler-Flags-for-NixOS.html
       ALL_HARDEN_OPTS = {
         format: %w(-Wformat -Wformat-security -Werror=format-security),
-        stackprotector: %w(-fstack-protector-strong --param ssp-buffer-size=4),
+        stackprotector: %w(-fstack-protector-strong --param=ssp-buffer-size=4),
         fortify: %w(-O2 -D_FORTIFY_SOURCE=2),
         pic: '-fPIC',
         strictoverflow: '-fno-strict-overflow',
