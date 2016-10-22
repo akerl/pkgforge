@@ -26,6 +26,7 @@ module PkgForge
       raise('File package type requires "path" setting') unless package[:path]
       @upload_path = File.join(tmpdir(:release), package[:path])
       @upload_name = package[:name] || name
+      nil
     end
 
     Contract None => nil
