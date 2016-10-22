@@ -14,9 +14,9 @@ module PkgForge
     Contract None => nil
     def package!
       add_license!
-      type_method = "#{source[:type]}_prepare_package"
+      type_method = "#{package[:type]}_prepare_package"
       return send(type_method) if respond_to?(type_method, true)
-      raise("Unknown package type: #{source[:type]}")
+      raise("Unknown package type: #{package[:type]}")
     end
 
     private
