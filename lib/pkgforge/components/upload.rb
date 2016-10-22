@@ -20,8 +20,8 @@ module PkgForge
         'targit',
         '--authfile', '.github',
         '--create',
-        '--name', "#{name}.tar.gz",
-        "#{org}/#{name}", version, tmpfile(:tarball)
+        '--name', @upload_name,
+        "#{org}/#{name}", version, @upload_path
       ]
       nil
     end

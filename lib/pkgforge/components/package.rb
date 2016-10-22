@@ -4,14 +4,37 @@ module PkgForge
   ##
   # Add upload methods to Forge
   class Forge
+    attr_writer :package
+
+    Contract None => HashOf[Symbol => Any]
+    def package
+      @package ||= { type: 'tarball' }
+    end
+
     Contract None => nil
     def package!
       add_license!
-      make_tarball!
-      copy_tarball!
+      type_method = "#{source[:type]}_prepare_package"
+      return send(type_method) if respond_to?(type_method, true)
+      raise("Unknown package type: #{source[:type]}")
     end
 
     private
+
+    Contract None => nil
+    def file_prepare_package
+      raise('File package type requires "path" setting') unless package[:path]
+      @upload_path = File.join(tmpdir(:release), package[:path])
+      @upload_name = package[:name] || name
+    end
+
+    Contract None => nil
+    def tarball_prepare_package
+      @upload_path = tmpfile(:tarball)
+      @upload_name = "#{name}.tar.gz"
+      make_tarball!
+      copy_tarball!
+    end
 
     Contract None => nil
     def make_tarball!
@@ -33,6 +56,18 @@ module PkgForge
       FileUtils.cp tmpfile(:tarball), pkg_file
       FileUtils.chmod 0o0644, pkg_file
       nil
+    end
+  end
+
+  module DSL
+    ##
+    # Add package methods to Forge DSL
+    class Forge
+      Contract HashOf[Symbol => Any] => nil
+      def package(params)
+        @forge.package = params
+        nil
+      end
     end
   end
 end

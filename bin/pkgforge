@@ -21,6 +21,7 @@ def run_on_file(options)
   end
 end
 
+# rubocop:disable Metrics/BlockLength
 Mercenary.program(:pkgforge) do |p|
   p.version PkgForge::VERSION
   p.description 'DSL engine for building Arch packages'
