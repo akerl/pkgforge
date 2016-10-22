@@ -21,13 +21,21 @@ module PkgForge
 
     private
 
+    Contract String, String => nil
+    def expose_artifact(artifact_name, artifact_source)
+      FileUtils.mkdir_p 'pkg'
+      dest = File.join('pkg', artifact_name)
+      FileUtils.cp artifact_source, dest
+      FileUtils.chmod 0o0644, pkg_file
+      nil
+    end
+
     Contract None => nil
     def file_prepare_package
       raise('File package type requires "path" setting') unless package[:path]
       @upload_path = File.join(tmpdir(:release), package[:path])
       @upload_name = package[:name] || name
-      FileUtils.cp @upload_path, File.join('pkg', @upload_name)
-      nil
+      expose_artifact @upload_name, @upload_path
     end
 
     Contract None => nil
@@ -35,7 +43,7 @@ module PkgForge
       @upload_path = tmpfile(:tarball)
       @upload_name = "#{name}.tar.gz"
       make_tarball!
-      copy_tarball!
+      expose_artifact "#{name}-#{git_hash}.tar.gz", tmpfile(:tarball)
     end
 
     Contract None => nil
@@ -49,15 +57,6 @@ module PkgForge
     Contract None => String
     def git_hash
       `git rev-parse --short HEAD`.rstrip
-    end
-
-    Contract None => nil
-    def copy_tarball!
-      FileUtils.mkdir_p 'pkg'
-      pkg_file = "pkg/#{name}-#{git_hash}.tar.gz"
-      FileUtils.cp tmpfile(:tarball), pkg_file
-      FileUtils.chmod 0o0644, pkg_file
-      nil
     end
   end
 
