@@ -26,7 +26,7 @@ module PkgForge
       FileUtils.mkdir_p 'pkg'
       dest = File.join('pkg', artifact_name)
       FileUtils.cp artifact_source, dest
-      FileUtils.chmod 0o0644, pkg_file
+      FileUtils.chmod 0o0644, dest
       nil
     end
 
