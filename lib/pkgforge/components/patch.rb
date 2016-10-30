@@ -9,13 +9,16 @@ module PkgForge
       @patches ||= []
     end
 
+    Contract String => nil
+    def run_patch(file)
+      run_local "patch -d #{tmpdir(:build)} -p1 < patches/#{file}"
+    end
+
     private
 
     Contract None => nil
     def patch_source!
-      patches.each do |patch|
-        run_local "patch -d #{tmpdir(:build)} -p1 < patches/#{patch}"
-      end
+      patches.each { |patch| run_patch(patch) }
       nil
     end
   end
@@ -28,6 +31,15 @@ module PkgForge
       def patch(file)
         @forge.patches << file
         nil
+      end
+    end
+
+    ##
+    # Add patch methods to Build DSL
+    class Build
+      Contract String => nil
+      def patch(file)
+        @forge.run_patch(file)
       end
     end
   end
