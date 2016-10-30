@@ -63,8 +63,6 @@ module PkgForge
         nil
       end
 
-      private
-
       Contract None => HashOf[String => String]
       def default_env
         {
