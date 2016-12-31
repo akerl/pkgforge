@@ -9,15 +9,41 @@ def add_common_opts(cmd)
   # rubocop:disable Metrics/LineLength
   cmd.option :directory, '-d DIR', '--directory DIR', 'Change to directory before loading'
   cmd.option :skipcleanup, '-s', '--skipcleanup', 'Skip cleanup of tmpdirs and tmpfiles'
+  cmd.option :statefile, '--statefile FILE', 'State file to re-use build directories'
   # rubocop:enable Metrics/LineLength
 end
 
-def run_on_file(options)
+def get_file(options)
   options[:directory] ||= '.'
   Dir.chdir(options[:directory]) do
     raise("No #{FILE_NAME} file") unless File.exist? FILE_NAME
     forge = PkgForge.load_from_file
     yield forge
+  end
+end
+
+def run(forge, skipcleanup, release = false, build = true)
+  if build
+    forge.build!
+    forge.test!
+    forge.package!
+  end
+  forge.push! if release
+ensure
+  forge.cleanup! unless skipcleanup
+end
+
+def run_with_state(forge, options, release = false)
+  statefile = options[:statefile]
+  forge.load_state!(statefile) if release
+  run(forge, options[:skipcleanup] || !release, release, !release)
+  forge.write_state!(statefile) unless release
+end
+
+def run_with_options(options, release = false)
+  run_on_file(options) do |forge|
+    return run(forge, options[:skipcleanup], release) unless options[:statefile]
+    run_with_state(forge, options, release)
   end
 end
 
@@ -33,15 +59,7 @@ Mercenary.program(:pkgforge) do |p|
     add_common_opts(c)
 
     c.action do |_, options|
-      run_on_file(options) do |forge|
-        begin
-          forge.build!
-          forge.test!
-          forge.package!
-        ensure
-          forge.cleanup! unless options[:skipcleanup]
-        end
-      end
+      run_on_file(options) { |forge| run(forge, options) }
     end
   end
 
@@ -51,16 +69,7 @@ Mercenary.program(:pkgforge) do |p|
     add_common_opts(c)
 
     c.action do |_, options|
-      run_on_file(options) do |forge|
-        begin
-          forge.build!
-          forge.test!
-          forge.package!
-          forge.push!
-        ensure
-          forge.cleanup! unless options[:skipcleanup]
-        end
-      end
+      run_on_file(options) { |forge| run(forge, options, true) }
     end
   end
 

@@ -15,6 +15,8 @@ require 'pkgforge/components/source'
 require 'pkgforge/components/test'
 require 'pkgforge/components/upload'
 require 'pkgforge/components/cleanup'
+require 'pkgforge/components/state'
+
 ##
 # DSL engine for compiling Arch packages
 module PkgForge
