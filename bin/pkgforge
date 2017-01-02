@@ -59,7 +59,7 @@ Mercenary.program(:pkgforge) do |p|
     add_common_opts(c)
 
     c.action do |_, options|
-      run_on_file(options) { |forge| run(forge, options) }
+      run_with_options(options)
     end
   end
 
@@ -69,7 +69,7 @@ Mercenary.program(:pkgforge) do |p|
     add_common_opts(c)
 
     c.action do |_, options|
-      run_on_file(options) { |forge| run(forge, options, true) }
+      run_with_options(options, true)
     end
   end
 
@@ -79,7 +79,7 @@ Mercenary.program(:pkgforge) do |p|
     add_common_opts(c)
 
     c.action do |_, options|
-      run_on_file(options) do |forge|
+      get_file(options) do |forge|
         puts "name: #{forge.name}"
       end
     end
