@@ -41,7 +41,7 @@ def run_with_state(forge, options, release = false)
 end
 
 def run_with_options(options, release = false)
-  run_on_file(options) do |forge|
+  get_file(options) do |forge|
     return run(forge, options[:skipcleanup], release) unless options[:statefile]
     run_with_state(forge, options, release)
   end
