@@ -8,7 +8,7 @@ module PkgForge
     def cleanup!
       state[:tmpdirs] ||= {}
       state[:tmpfiles] ||= {}
-      paths = state.values_at(:tmpdirs, :tmpfiles).flatten
+      paths = state.values_at(:tmpdirs, :tmpfiles).map(&:values).flatten
       puts "Cleaning up tmp paths: #{paths}"
       FileUtils.rm_rf paths
       nil
