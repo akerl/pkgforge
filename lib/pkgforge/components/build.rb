@@ -63,6 +63,16 @@ module PkgForge
         nil
       end
 
+      Contract String, Maybe[String] => nil
+      def cp(src, dest = nil)
+        dest ||= src
+        dest = File.join(releasedir, dest)
+        dest_dir = File.dirname dest
+        FileUtils.mkdir_p dest_dir
+        FileUtils.cp_r src, dest
+        nil
+      end
+
       Contract None => HashOf[String => String]
       def default_env
         {
