@@ -32,10 +32,13 @@ module PkgForge
 
     Contract None => nil
     def file_prepare_package
-      raise('File package type requires "path" setting') unless package[:path]
-      state[:upload_path] = File.join(tmpdir(:release), package[:path])
-      state[:upload_name] = package[:name] || name
-      expose_artifact state[:upload_name], state[:upload_path]
+      path = package[:path]
+      raise('File package type requires "path" setting') unless path
+      state.merge!(
+        upload_path: File.join(tmpdir(:release), path),
+        upload_name: package[:name] || name
+      )
+      expose_artifact(*state.values_at(:upload_name, :upload_path))
     end
 
     Contract None => nil
