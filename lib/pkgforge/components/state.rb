@@ -16,7 +16,7 @@ module PkgForge
       File.open(statefile, 'w') do |fh|
         fh << {
           tmpfiles: @tmpfiles,
-          tmpdirs: @tmpfirs
+          tmpdirs: @tmpdirs
         }.to_json
       end
     end
