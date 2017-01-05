@@ -19,6 +19,7 @@ module PkgForge
           tmpdirs: @tmpdirs
         }.to_json
       end
+      nil
     end
   end
 end
