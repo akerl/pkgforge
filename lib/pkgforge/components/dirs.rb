@@ -17,14 +17,14 @@ module PkgForge
 
     Contract Symbol => String
     def tmpdir(id)
-      @tmpdirs ||= {}
-      @tmpdirs[id] ||= Dir.mktmpdir(id.to_s)
+      state[:tmpdirs] ||= {}
+      state[:tmpdirs][id] ||= Dir.mktmpdir(id.to_s)
     end
 
     Contract Symbol => String
     def tmpfile(id)
-      @tmpfiles ||= {}
-      @tmpfiles[id] ||= Tempfile.create(id.to_s).path
+      state[:tmpfiles] ||= {}
+      state[:tmpfiles][id] ||= Tempfile.create(id.to_s).path
     end
   end
 

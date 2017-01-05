@@ -33,15 +33,15 @@ module PkgForge
     Contract None => nil
     def file_prepare_package
       raise('File package type requires "path" setting') unless package[:path]
-      @upload_path = File.join(tmpdir(:release), package[:path])
-      @upload_name = package[:name] || name
-      expose_artifact @upload_name, @upload_path
+      state[:upload_path] = File.join(tmpdir(:release), package[:path])
+      state[:upload_name] = package[:name] || name
+      expose_artifact state[:upload_name], state[:upload_path]
     end
 
     Contract None => nil
     def tarball_prepare_package
-      @upload_path = tmpfile(:tarball)
-      @upload_name = "#{name}.tar.gz"
+      state[:upload_path] = tmpfile(:tarball)
+      state[:upload_name] = "#{name}.tar.gz"
       make_tarball!
       expose_artifact "#{name}-#{git_hash}.tar.gz", tmpfile(:tarball)
     end

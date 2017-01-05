@@ -6,9 +6,9 @@ module PkgForge
   class Forge
     Contract None => nil
     def cleanup!
-      @tmpdirs ||= {}
-      @tmpfiles ||= {}
-      paths = [@tmpfiles.values, @tmpdirs.values].flatten
+      state[:tmpdirs] ||= {}
+      state[:tmpfiles] ||= {}
+      paths = state.values_at(:tmpdirs, :tmpfiles).flatten
       puts "Cleaning up tmp paths: #{paths}"
       FileUtils.rm_rf paths
       nil

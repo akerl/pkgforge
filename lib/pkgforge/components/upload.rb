@@ -20,8 +20,8 @@ module PkgForge
         'targit',
         '--authfile', '.github',
         '--create',
-        '--name', @upload_name,
-        "#{org}/#{name}", version, @upload_path
+        '--name', state[:upload_name],
+        "#{org}/#{name}", version, state[:upload_path]
       ]
       nil
     end
