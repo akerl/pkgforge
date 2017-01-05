@@ -67,7 +67,7 @@ module PkgForge
       def cp(src, dest = nil)
         dest ||= src
         dest = File.join(releasedir, dest)
-        src = File.join(tmpdir(:buiild), src)
+        src = File.join(tmpdir(:build), src)
         dest_dir = File.dirname dest
         FileUtils.mkdir_p dest_dir
         FileUtils.cp_r src, dest
