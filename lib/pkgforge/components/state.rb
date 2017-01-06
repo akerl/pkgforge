@@ -1,4 +1,5 @@
 require 'json'
+require 'cymbal'
 
 module PkgForge
   ##
@@ -11,7 +12,7 @@ module PkgForge
 
     Contract String => nil
     def load_state!(statefile)
-      @state = JSON.parse(File.read(statefile))
+      @state = Cymbal.symbolize(JSON.parse(File.read(statefile)))
       nil
     end
 
