@@ -92,7 +92,7 @@ module PkgForge
     ##
     # Add dep methods to Forge DSL
     class Forge
-      Contract HashOf[Symbol => String] => nil
+      Contract HashOf[Symbol => Or[String, Hash]] => nil
       def deps(value)
         @forge.deps = value
         nil
