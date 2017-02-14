@@ -40,6 +40,7 @@ module PkgForge
         verify_file(file, dep_hash[:checksum])
         extract_file(file, dir)
       end
+      nil
     end
 
     Contract String => Hash
