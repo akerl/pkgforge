@@ -37,7 +37,7 @@ module PkgForge
         file = tmpfile(dep_name)
         dir = tmpdir(dep_name)
         download_file(dep_name, file, dep_hash[:version])
-        verify_file(file, dep_hash[:shasum])
+        verify_file(file, dep_hash[:checksum])
         extract_file(file, dir)
       end
     end
