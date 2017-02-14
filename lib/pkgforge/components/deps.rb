@@ -40,7 +40,6 @@ module PkgForge
         verify_file(file, dep_hash[:shasum])
         extract_file(file, dir)
       end
-      nil
     end
 
     Contract String => Hash
@@ -57,6 +56,7 @@ module PkgForge
     def download_file(dep_name, file, dep_version)
       url = "https://github.com/#{org}/#{dep_name}/releases/download/#{dep_version}/#{dep_name}.tar.gz" # rubocop:disable Metrics/LineLength
       open(file, 'wb') { |fh| fh << open(url, 'rb').read }
+      nil
     end
 
     Contract String, String => nil
