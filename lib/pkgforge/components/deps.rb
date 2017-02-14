@@ -6,7 +6,7 @@ module PkgForge
   class Forge
     attr_writer :deps, :remove_linker_archives, :remove_pkgconfig_files
 
-    Contract None => HashOf[Symbol => String]
+    Contract None => HashOf[Symbol => [String, Hash]]
     def deps
       @deps ||= {}
     end
