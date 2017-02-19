@@ -33,7 +33,6 @@ module PkgForge
     Contract None => nil
     def download_deps!
       deps.each do |dep_name, dep_hash|
-        dep_hash = build_dep_hash(dep_hash)
         file = tmpfile(dep_name)
         dir = tmpdir(dep_name)
         download_file(dep_name, file, dep_hash[:version])
@@ -41,16 +40,6 @@ module PkgForge
         extract_file(file, dir)
       end
       nil
-    end
-
-    Contract String => Hash
-    def build_dep_hash(dep_version)
-      { version: dep_version }
-    end
-
-    Contract Hash => Hash
-    def build_dep_hash(dep_hash) # rubocop:disable Lint/DuplicateMethods
-      dep_hash
     end
 
     Contract Symbol, String, String => nil
@@ -95,7 +84,8 @@ module PkgForge
     class Forge
       Contract HashOf[Symbol => Or[String, Hash]] => nil
       def deps(value)
-        @forge.deps = value
+        value = value.map { |k, v| [k, v.is_a?(Hash) ? v : { version: v }] }
+        @forge.deps = Hash[value]
         nil
       end
 
