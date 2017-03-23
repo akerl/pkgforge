@@ -15,38 +15,29 @@ module PkgForge
     def package!
       add_license!
       type_method = "#{package[:type]}_prepare_package"
-      return send(type_method) if respond_to?(type_method, true)
-      raise("Unknown package type: #{package[:type]}")
+      method_found = respond_to?(type_method, true)
+      raise("Unknown package type: #{package[:type]}") unless method_found
+      send(type_method)
+      expose_artifacts!
     end
 
     private
 
-    Contract String, String => nil
-    def expose_artifact(artifact_name, artifact_source)
-      FileUtils.mkdir_p 'pkg'
-      dest = File.join('pkg', artifact_name)
-      FileUtils.cp artifact_source, dest
-      FileUtils.chmod 0o0644, dest
-      nil
-    end
-
     Contract None => nil
     def file_prepare_package
-      path = package[:path]
-      raise('File package type requires "path" setting') unless path
-      state.merge!(
-        upload_path: File.join(tmpdir(:release), path),
-        upload_name: package[:name] || name
-      )
-      expose_artifact(*state.values_at(:upload_name, :upload_path))
+      artifacts = package[:artifacts] || [package[:artifact]].compact
+      raise('File package type requires artifacts list') if artifacts.empty?
+      artifacts.each { |x| add_artifact(x) }
     end
 
     Contract None => nil
     def tarball_prepare_package
-      state[:upload_path] = tmpfile(:tarball)
-      state[:upload_name] = "#{name}.tar.gz"
+      add_artifact(
+        source: tmpfile(:tarball),
+        name: "#{name}.tar.gz",
+        long_name: "#{name}-#{git_hash}.tar.gz"
+      )
       make_tarball!
-      expose_artifact "#{name}-#{git_hash}.tar.gz", tmpfile(:tarball)
     end
 
     Contract None => nil

@@ -4,10 +4,28 @@ module PkgForge
   class Forge
     Contract None => nil
     def push!
-      upload_artifact!
+      upload_artifacts!
     end
 
     private
+
+    Contract HashOf[Symbol => String] => nil
+    def add_artifacts(params)
+      state[:artifacts] ||= []
+      state[:artifacts] << params
+      nil
+    end
+
+    Contract None => nil
+    def expose_artifacts!
+      FileUtils.mkdir_p 'pkg'
+      state[:artifacts].each do |artifact|
+        dest = File.join('pkg', artifact[:long_name] || artifact[:name])
+        FileUtils.cp artifact[:source], dest
+        FileUtils.chmod 0o0644, dest
+      end
+      nil
+    end
 
     Contract None => String
     def version
@@ -15,14 +33,16 @@ module PkgForge
     end
 
     Contract None => nil
-    def upload_artifact!
-      run_local [
-        'targit',
-        '--authfile', '.github',
-        '--create',
-        '--name', state[:upload_name],
-        "#{org}/#{name}", version, state[:upload_path]
-      ]
+    def upload_artifacts!
+      state[:artifacts].each do |artifact|
+        run_local [
+          'targit',
+          '--authfile', '.github',
+          '--create',
+          '--name', artifact[:name],
+          "#{org}/#{name}", version, artifact[:source]
+        ]
+      end
       nil
     end
   end
