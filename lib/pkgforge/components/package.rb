@@ -27,7 +27,10 @@ module PkgForge
     def file_prepare_package
       artifacts = package[:artifacts] || [package[:artifact]].compact
       raise('File package type requires artifacts list') if artifacts.empty?
-      artifacts.each { |x| add_artifact(x) }
+      artifacts.each do |x|
+        x[:source] = File.join(tmpdir(:release), x[:source])
+        add_artifact(x)
+      end
     end
 
     Contract None => nil
