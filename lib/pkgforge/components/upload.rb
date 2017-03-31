@@ -10,7 +10,7 @@ module PkgForge
     private
 
     Contract HashOf[Symbol => String] => nil
-    def add_artifacts(params)
+    def add_artifact(params)
       state[:artifacts] ||= []
       state[:artifacts] << params
       nil
@@ -19,6 +19,7 @@ module PkgForge
     Contract None => nil
     def expose_artifacts!
       FileUtils.mkdir_p 'pkg'
+      return unless state[:artifacts]
       state[:artifacts].each do |artifact|
         dest = File.join('pkg', artifact[:long_name] || artifact[:name])
         FileUtils.cp artifact[:source], dest
@@ -34,6 +35,7 @@ module PkgForge
 
     Contract None => nil
     def upload_artifacts!
+      return unless state[:artifacts]
       state[:artifacts].each do |artifact|
         run_local [
           'targit',
