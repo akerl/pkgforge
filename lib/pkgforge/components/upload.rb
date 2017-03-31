@@ -37,13 +37,9 @@ module PkgForge
     def upload_artifacts!
       return unless state[:artifacts]
       state[:artifacts].each do |artifact|
-        run_local [
-          'targit',
-          '--authfile', '.github',
-          '--create',
-          '--name', artifact[:name],
-          "#{org}/#{name}", version, artifact[:source]
-        ]
+        run_local ['targit', '--authfile', '.github', '--create',
+                   '--name', artifact[:name],
+                   "#{org}/#{name}", version, artifact[:source]]
       end
       nil
     end

@@ -31,6 +31,7 @@ module PkgForge
         x[:source] = File.join(tmpdir(:release), x[:source])
         add_artifact(x)
       end
+      nil
     end
 
     Contract None => nil
