@@ -18,6 +18,7 @@ module PkgForge
       prepare_deps!
       builder = PkgForge::DSL::Build.new(self)
       builder.instance_eval(&build_block)
+      nil
     end
   end
 
@@ -25,7 +26,6 @@ module PkgForge
     ##
     # Add build method to Forge DSL
     class Forge
-      Contract Func[None => nil] => nil
       def build(&block)
         @forge.build_block = block
         nil

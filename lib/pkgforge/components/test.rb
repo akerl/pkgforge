@@ -15,6 +15,7 @@ module PkgForge
     def test!
       tester = PkgForge::DSL::Test.new(self)
       tester.instance_eval(&test_block)
+      nil
     end
 
     Contract Or[String, Array], Or[HashOf[String => String], {}, nil] => nil
@@ -68,7 +69,6 @@ module PkgForge
     ##
     # Add test methods to Forge DSL
     class Forge
-      Contract Func[None => nil] => nil
       def test(&block)
         @forge.test_block = block
         nil
