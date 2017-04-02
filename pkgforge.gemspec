@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.executables = ['pkgforge']
 
   s.add_dependency 'mercenary', '~> 0.3.4'
-  s.add_dependency 'contracts', '~> 0.14.0'
+  s.add_dependency 'contracts', '~> 0.15.0'
   s.add_dependency 'cymbal', '~> 1.0.0'
 
   s.add_development_dependency 'rubocop', '~> 0.48.0'
