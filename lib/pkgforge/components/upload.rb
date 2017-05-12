@@ -2,6 +2,8 @@ module PkgForge
   ##
   # Add upload methods to Forge
   class Forge
+    attr_accessor :endpoint
+
     Contract None => nil
     def push!
       upload_artifacts!
@@ -37,11 +39,25 @@ module PkgForge
     def upload_artifacts!
       return unless state[:artifacts]
       state[:artifacts].each do |artifact|
-        run_local ['targit', '--authfile', '.github', '--create',
-                   '--name', artifact[:name],
-                   "#{org}/#{name}", version, artifact[:source]]
+        args = ['targit', '--authfile', '.github', '--create']
+        args += ['--name', artifact[:name]]
+        args += ['--endpoint', endpoint] if endpoint
+        args += ["#{org}/#{name}", version, artifact[:source]]
+        run_local args
       end
       nil
+    end
+  end
+
+  module DSL
+    ##
+    # Add upload methods to Forge DSL
+    class Forge
+      Contract String => nil
+      def endpoint(value)
+        @forge.endpoint = value
+        nil
+      end
     end
   end
 end
