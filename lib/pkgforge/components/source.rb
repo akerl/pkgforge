@@ -32,6 +32,7 @@ module PkgForge
       dest_file = tmpfile(:source_tar)
       File.open(dest_file, 'wb') do |fh|
         open(source[:url], 'rb') { |request| fh.write request.read }
+        verify_file(dest_file, source[:checksum])
       end
       run "tar -xf #{dest_file} --strip-components=1"
     end
