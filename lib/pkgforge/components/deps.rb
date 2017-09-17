@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'digest'
 
 module PkgForge
   ##
