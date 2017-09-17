@@ -52,13 +52,16 @@ module PkgForge
 
     Contract String, Maybe[String] => nil
     def verify_file(file, expected = nil)
-      unless expected
-        puts "No checksum provided for #{file}"
-        return
+      case expected
+      when nil
+        raise "No checksum provided for #{file}"
+      when 'skip'
+        puts "Skipping checksum for #{file}"
+      else
+        actual = Digest::SHA256.file(file).hexdigest
+        return if actual == expected
+        raise "Checksum fail for #{file}: #{actual} (actual) != #{expected} (expected)" # rubocop:disable Metrics/LineLength
       end
-      actual = Digest::SHA256.file(file).hexdigest
-      return if actual == expected
-      raise "Checksum fail for #{file}: #{actual} (actual) != #{expected} (expected)" # rubocop:disable Metrics/LineLength
     end
 
     Contract String, String => nil
