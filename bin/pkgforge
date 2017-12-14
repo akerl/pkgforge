@@ -90,3 +90,4 @@ Mercenary.program(:pkgforge) do |p|
     exit 1
   end
 end
+# rubocop:enable Metrics/BlockLength
