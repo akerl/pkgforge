@@ -31,7 +31,9 @@ module PkgForge
     def tar_prepare_source
       dest_file = tmpfile(:source_tar)
       File.open(dest_file, 'wb') do |fh|
-        open(source[:url], 'rb') { |request| fh.write request.read }
+        open(source[:url], 'rb') do |request| # rubocop:disable Security/Open
+          fh.write request.read
+        end
         verify_file(dest_file, source[:checksum])
       end
       run "tar -xf #{dest_file} --strip-components=1"
