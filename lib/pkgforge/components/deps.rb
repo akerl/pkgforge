@@ -43,7 +43,7 @@ module PkgForge
       nil
     end
 
-    Contract String, HashOf[String => String], String => nil
+    Contract Symbol, HashOf[String => String], String => nil
     def download_file(dep_name, dep_hash, file)
       dep_hash[:org] ||= org
       dep_hash[:site] ||= 'https://github.com'
