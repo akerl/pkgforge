@@ -36,7 +36,7 @@ module PkgForge
       deps.each do |dep_name, dep_hash|
         file = tmpfile(dep_name)
         dir = tmpdir(dep_name)
-        download_file(dep_name, file, dep_hash[:version])
+        download_file(dep_name, dep_hash, file)
         verify_file(file, dep_hash[:checksum])
         extract_file(file, dir)
       end
@@ -44,8 +44,10 @@ module PkgForge
     end
 
     Contract Symbol, String, String => nil
-    def download_file(dep_name, file, dep_version)
-      url = "https://github.com/#{org}/#{dep_name}/releases/download/#{dep_version}/#{dep_name}.tar.gz" # rubocop:disable Metrics/LineLength
+    def download_file(dep_name, dep_hash, file)
+      dep_hash[:org] ||= org
+      dep_hash[:site] ||= 'https://github.com'
+      url = "#{dep_hash[:site]}/#{dep_hash[:org]}/#{dep_name}/releases/download/#{dep_hash[:version]}/#{dep_name}.tar.gz" # rubocop:disable Metrics/LineLength
       File.open(file, 'wb') do |fh|
         fh << open(url, 'rb').read # rubocop:disable Security/Open
       end
