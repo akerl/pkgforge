@@ -7,7 +7,7 @@ module PkgForge
   class Forge
     attr_writer :deps, :remove_linker_archives, :remove_pkgconfig_files
 
-    Contract None => HashOf[Symbol => Or[String, Hash]]
+    Contract None => HashOf[Symbol => HashOf[Symbol => String]]
     def deps
       @deps ||= {}
     end
@@ -43,7 +43,7 @@ module PkgForge
       nil
     end
 
-    Contract Symbol, HashOf[String => String], String => nil
+    Contract Symbol, HashOf[Symbol => String], String => nil
     def download_file(dep_name, dep_hash, file)
       dep_hash[:org] ||= org
       dep_hash[:site] ||= 'https://github.com'
