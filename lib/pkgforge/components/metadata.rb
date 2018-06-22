@@ -23,6 +23,7 @@ module PkgForge
 
     Contract None => nil
     def add_license!
+      return if licenses.empty?
       dest_dir = File.join(tmpdir(:release), 'usr', 'share', 'licenses', name)
       FileUtils.mkdir_p dest_dir
       licenses.each do |license|
