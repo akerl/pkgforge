@@ -2,7 +2,7 @@ pkgforge
 =========
 
 [![Gem Version](https://img.shields.io/gem/v/pkgforge.svg)](https://rubygems.org/gems/pkgforge)
-[![Build Status](https://img.shields.io/circleci/project/akerl/pkgforge/master.svg)](https://circleci.com/gh/akerl/pkgforge)
+[![Build Status](https://img.shields.io/travis/com/akerl/pkgforge.svg)](https://travis-ci.com/akerl/pkgforge)
 [![Coverage Status](https://img.shields.io/codecov/c/github/akerl/pkgforge.svg)](https://codecov.io/github/akerl/pkgforge)
 [![Code Quality](https://img.shields.io/codacy/fb7636f572b04067801ac9024ed71228.svg)](https://www.codacy.com/app/akerl/pkgforge)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
