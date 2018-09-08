@@ -43,7 +43,7 @@ module PkgForge
         args += ['--name', artifact[:name]]
         args += ['--endpoint', endpoint] if endpoint
         args += ["#{org}/#{name}", version, artifact[:source]]
-        run_local args
+        run args
       end
       nil
     end

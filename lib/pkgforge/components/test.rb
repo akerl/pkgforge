@@ -14,7 +14,7 @@ module PkgForge
     Contract None => nil
     def test!
       tester = PkgForge::DSL::Test.new(self)
-      tester.instance_eval(&test_block)
+      Dir.chdir(tmpdir(:release)) { tester.instance_eval(&test_block) }
       nil
     end
 
@@ -24,9 +24,7 @@ module PkgForge
       cmd.prepend('/usr/bin/env ') if cmd.is_a? String
       env['PATH'] ||= './usr/bin'
       lib_override do
-        Dir.chdir(tmpdir(:release)) do
-          run_local(cmd, env)
-        end
+        run(cmd, env)
       end
     end
 

@@ -47,7 +47,7 @@ module PkgForge
     Contract None => nil
     def make_tarball!
       Dir.chdir(tmpdir(:release)) do
-        run_local "tar -czvf #{tmpfile(:tarball)} *"
+        run "tar -czvf #{tmpfile(:tarball)} *"
       end
       nil
     end

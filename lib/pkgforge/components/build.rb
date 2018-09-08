@@ -17,7 +17,7 @@ module PkgForge
       patch_source!
       prepare_deps!
       builder = PkgForge::DSL::Build.new(self)
-      builder.instance_eval(&build_block)
+      Dir.chdir(tmpdir(:build)) { builder.instance_eval(&build_block) }
       nil
     end
   end

@@ -70,7 +70,7 @@ module PkgForge
 
     Contract String, String => nil
     def extract_file(file, dir)
-      run_local "tar -x -C #{dir} -f #{file}"
+      run "tar -x -C #{dir} -f #{file}"
     end
 
     Contract None => nil

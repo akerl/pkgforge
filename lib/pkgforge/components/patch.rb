@@ -11,7 +11,7 @@ module PkgForge
 
     Contract String => nil
     def run_patch(file)
-      run_local "patch -d #{tmpdir(:build)} -p1 < patches/#{file}"
+      run "patch -d #{tmpdir(:build)} -p1 < patches/#{file}"
     end
 
     private
