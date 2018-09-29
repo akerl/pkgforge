@@ -24,6 +24,11 @@ module PkgForge
     private
 
     Contract None => nil
+    def noop_prepare_package
+      nil
+    end
+
+    Contract None => nil
     def file_prepare_package
       artifacts = package[:artifacts] || [package[:artifact]].compact
       raise('File package type requires artifacts list') if artifacts.empty?
