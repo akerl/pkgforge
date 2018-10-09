@@ -36,7 +36,9 @@ module PkgForge
         end
         verify_file(dest_file, source[:checksum])
       end
-      run "tar -xf #{dest_file} --strip-components=1"
+      Dir.chdir(tmpdir(:build)) do
+        run "tar -xf #{dest_file} --strip-components=1"
+      end
     end
 
     Contract None => nil
