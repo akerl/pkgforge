@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.executables = ['pkgforge']
 
   s.add_dependency 'contracts', '~> 0.16.0'
-  s.add_dependency 'cymbal', '~> 1.0.0'
+  s.add_dependency 'cymbal', '~> 2.0.0'
   s.add_dependency 'mercenary', '~> 0.3.4'
 
   s.add_development_dependency 'codecov', '~> 0.1.1'
