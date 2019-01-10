@@ -37,8 +37,10 @@ module PkgForge
 
       # Shamelessly sourced from:
       # https://blog.mayflower.de/5800-Hardening-Compiler-Flags-for-NixOS.html
+      # https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc/
+      # https://wiki.debian.org/Hardening
       ALL_HARDEN_OPTS = {
-        controlflow: %w[-fcf-protection -mcet],
+        controlflow: %w[-fcf-protection],
         format: %w[-Wformat -Wformat-security -Werror=format-security],
         fortify: %w[-D_FORTIFY_SOURCE=2],
         implicit: %w[-Werror=implicit-function-declaration],
