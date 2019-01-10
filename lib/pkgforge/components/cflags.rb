@@ -38,13 +38,20 @@ module PkgForge
       # Shamelessly sourced from:
       # https://blog.mayflower.de/5800-Hardening-Compiler-Flags-for-NixOS.html
       ALL_HARDEN_OPTS = {
+        controlflow: %w[-mcet -fcf-protection],
         format: %w[-Wformat -Wformat-security -Werror=format-security],
+        fortify: %w[-D_FORTIFY_SOURCE=2],
+        implicit: %w[-Werror=implicit-function-declaration],
+        lazybinding: %w[-Wl,-z,now],
+        optimize: %w[-O2],
+        pic: %w[-fPIC -shared],
+        pie: %w[-fpie -Wl,-pie],
+        relro: %w[-W,-z,relro],
+        stackclash: %w[-fstack-clash-protection],
         stackprotector: %w[-fstack-protector-strong],
-        fortify: %w[-O2 -D_FORTIFY_SOURCE=2],
-        pic: '-fPIC',
-        strictoverflow: '-fno-strict-overflow',
-        relro: '-zrelro',
-        bindnow: '-zbindnow'
+        strictoverflow: %w[-fno-strict-overflow],
+        underlinking: %w[-Wl,-z,defs],
+        warnings: %w[-Wall]
       }.freeze
 
       Contract Maybe[Array[String]] => nil
