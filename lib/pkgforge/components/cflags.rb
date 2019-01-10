@@ -38,7 +38,7 @@ module PkgForge
       # Shamelessly sourced from:
       # https://blog.mayflower.de/5800-Hardening-Compiler-Flags-for-NixOS.html
       ALL_HARDEN_OPTS = {
-        controlflow: %w[-mcet -fcf-protection],
+        controlflow: %w[-fcf-protection -mcet],
         format: %w[-Wformat -Wformat-security -Werror=format-security],
         fortify: %w[-D_FORTIFY_SOURCE=2],
         implicit: %w[-Werror=implicit-function-declaration],
@@ -46,7 +46,7 @@ module PkgForge
         optimize: %w[-O2],
         pic: %w[-fPIC -shared],
         pie: %w[-fpie -Wl,-pie],
-        relro: %w[-W,-z,relro],
+        relro: %w[-Wl,-z,relro],
         stackclash: %w[-fstack-clash-protection],
         stackprotector: %w[-fstack-protector-strong],
         strictoverflow: %w[-fno-strict-overflow],
