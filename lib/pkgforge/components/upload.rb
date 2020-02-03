@@ -39,7 +39,7 @@ module PkgForge
     def upload_artifacts!
       return unless state[:artifacts]
       state[:artifacts].each do |artifact|
-        args = ['targit', '--authfile', '.github', '--create']
+        args = ['targit', '--authfile', '.creds_github', '--create']
         args += ['--name', artifact[:name]]
         args += ['--endpoint', endpoint] if endpoint
         args += ["#{org}/#{name}", version, artifact[:source]]
