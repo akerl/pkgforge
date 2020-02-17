@@ -63,7 +63,7 @@ module PkgForge
         nil
       end
 
-      STATIC_OPTS = %w(-static)
+      STATIC_OPTS = %w[-static].freeze
       Contract None => nil
       def static
         @forge.cflags += STATIC_OPTS.dup
