@@ -46,7 +46,7 @@ module PkgForge
         implicit: %w[-Werror=implicit-function-declaration],
         lazybinding: %w[-Wl,-z,now],
         optimize: %w[-O2],
-        pic: %w[-fPIC -shared],
+        pic: %w[-fPIC],
         pie: %w[-fpie -Wl,-pie],
         relro: %w[-Wl,-z,relro],
         stackclash: %w[-fstack-clash-protection],
@@ -61,6 +61,12 @@ module PkgForge
         harden_opts = ALL_HARDEN_OPTS.reject { |k, _| list.include? k.to_s }
         @forge.cflags += harden_opts.values.flatten
         nil
+      end
+
+      STATIC_OPTS = %w(-static)
+      Contract None => nil
+      def static
+        @forge.cflags += STATIC_OPTS.dup
       end
     end
   end
