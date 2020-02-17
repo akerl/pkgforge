@@ -67,6 +67,7 @@ module PkgForge
       Contract None => nil
       def static
         @forge.cflags += STATIC_OPTS.dup
+        nil
       end
     end
   end
