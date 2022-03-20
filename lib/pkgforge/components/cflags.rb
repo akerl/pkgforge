@@ -30,7 +30,7 @@ module PkgForge
       Contract Maybe[ArrayOf[String]] => nil
       def libs(value = nil)
         value ||= @forge.deps.keys
-        value.map! { |x| '-l' + x.to_s }
+        value.map! { |x| "-l#{x}" }
         @forge.libs += value
         nil
       end

@@ -47,7 +47,7 @@ module PkgForge
     def download_file(dep_name, dep_hash, file)
       dep_hash[:org] ||= org
       dep_hash[:site] ||= 'https://github.com'
-      url = "#{dep_hash[:site]}/#{dep_hash[:org]}/#{dep_name}/releases/download/#{dep_hash[:version]}/#{dep_name}.tar.gz" # rubocop:disable Metrics/LineLength
+      url = "#{dep_hash[:site]}/#{dep_hash[:org]}/#{dep_name}/releases/download/#{dep_hash[:version]}/#{dep_name}.tar.gz" # rubocop:disable Layout/LineLength
       File.open(file, 'wb') do |fh|
         fh << open(url, 'rb').read # rubocop:disable Security/Open
       end
@@ -64,7 +64,7 @@ module PkgForge
       else
         actual = Digest::SHA256.file(file).hexdigest
         return if actual == expected
-        raise "Checksum fail for #{file}: #{actual} (actual) != #{expected} (expected)" # rubocop:disable Metrics/LineLength
+        raise "Checksum fail for #{file}: #{actual} (actual) != #{expected} (expected)"
       end
     end
 
@@ -75,7 +75,7 @@ module PkgForge
 
     Contract None => nil
     def remove_linker_archives!
-      deps.keys.each do |dep_name|
+      deps.each_key do |dep_name|
         File.unlink(*Dir.glob("#{tmpdir(dep_name)}/**/*.la"))
       end
       nil
@@ -83,7 +83,7 @@ module PkgForge
 
     Contract None => nil
     def remove_pkgconfig_files!
-      deps.keys.each do |dep_name|
+      deps.each_key do |dep_name|
         File.unlink(*Dir.glob("#{tmpdir(dep_name)}/**/*.pc"))
       end
       nil
@@ -97,7 +97,7 @@ module PkgForge
       Contract HashOf[Symbol => Or[String, Hash]] => nil
       def deps(value)
         value = value.map { |k, v| [k, v.is_a?(Hash) ? v : { version: v }] }
-        @forge.deps = Hash[value]
+        @forge.deps = value.to_h
         nil
       end
 

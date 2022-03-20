@@ -6,11 +6,9 @@ require 'mercenary'
 FILE_NAME = '.pkgforge'.freeze
 
 def add_common_opts(cmd)
-  # rubocop:disable Metrics/LineLength
   cmd.option :directory, '-d DIR', '--directory DIR', 'Change to directory before loading'
   cmd.option :skipcleanup, '-s', '--skipcleanup', 'Skip cleanup of tmpdirs and tmpfiles'
   cmd.option :statefile, '--statefile FILE', 'State file to re-use build directories'
-  # rubocop:enable Metrics/LineLength
 end
 
 def get_file(options)
