@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.files       = `git ls-files`.split
-  s.test_files  = `git ls-files spec/*`.split
   s.executables = ['pkgforge']
 
   s.add_dependency 'contracts', '~> 0.17.0'
