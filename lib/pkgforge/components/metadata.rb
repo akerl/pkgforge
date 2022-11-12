@@ -21,6 +21,11 @@ module PkgForge
       @licenses ||= ['LICENSE']
     end
 
+    Contract None => String
+    def version
+      @version ||= `git describe --abbrev=0 --tags`.rstrip
+    end
+
     Contract None => nil
     def add_license!
       return if licenses.empty?

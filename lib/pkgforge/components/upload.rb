@@ -30,11 +30,6 @@ module PkgForge
       nil
     end
 
-    Contract None => String
-    def version
-      @version ||= `git describe --abbrev=0 --tags`.rstrip
-    end
-
     Contract None => nil
     def upload_artifacts!
       return unless state[:artifacts]
