@@ -35,6 +35,16 @@ module PkgForge
     ##
     # Add build methods to Build DSL
     class Build
+      Contract None => String
+      def name
+        @forge.name
+      end
+
+      Contract None => String
+      def version
+        @forge.version
+      end
+
       Contract Or[String, Array], Or[HashOf[String => String], {}, nil] => nil
       def run(*args)
         @forge.run(*args)
