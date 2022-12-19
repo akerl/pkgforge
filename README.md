@@ -2,7 +2,7 @@ pkgforge
 =========
 
 [![Gem Version](https://img.shields.io/gem/v/pkgforge.svg)](https://rubygems.org/gems/pkgforge)
-[![GitHub Workflow Status](https://img.shields.io/actions/github/workflow/status/akerl/pkgforge/build.yml?branch=main)](https://github.com/akerl/pkgforge/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/akerl/pkgforge/build.yml?branch=main)](https://github.com/akerl/pkgforge/actions)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
 DSL engine for building Arch packages
