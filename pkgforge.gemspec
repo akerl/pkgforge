@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split
   s.executables = ['pkgforge']
 
-  s.add_dependency 'contracts', '~> 0.17.0'
+  s.add_dependency 'contracts', '~> 0.17'
   s.add_dependency 'cymbal', '~> 2.0.0'
   s.add_dependency 'mercenary', '~> 0.4.0'
 
-  s.add_development_dependency 'goodcop', '~> 0.9.5'
+  s.add_development_dependency 'goodcop', '~> 0.9.7'
   s.metadata['rubygems_mfa_required'] = 'true'
 end
